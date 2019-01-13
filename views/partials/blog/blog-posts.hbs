@@ -1,0 +1,44 @@
+<section class="section">
+    <div class="container-fluid">
+        <div class="columns">
+            <div class="column{{#if site.options.widgetsEnabled}} is-four-fifths{{/if}}">
+                {{#each posts}}
+                <div class="box">
+                    <article class="media">
+                        {{#if this.img}}{{#if ../site.options.showThumb}}
+                        <div class="media-left">
+                        <img src="{{this.img}}" style="max-width: 128px; max-height: 128px;" />
+                        </div>
+                        {{/if}}{{/if}}
+                        <div class="media-content">
+                        <div class="content">
+                            <p>
+                            <strong>{{this.title}}</strong>
+                            <br>
+                            {{this.content}}
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="button is-link" href="/post/{{this._id}}">Ler mais...</a>
+                            </div>
+                        </nav>
+                        </div>
+                    </article>
+                </div>
+                {{/each}}
+            </div>
+            {{#if site.options.widgetsEnabled}}
+            {{#each widgets}}
+            {{#if this.showOnMainPage}}
+            <div class="column">
+                <div class="box">
+                {{renderTemplate this.content root='true'}}
+                </div>
+            </div>
+            {{/if}}
+            {{/each}}
+            {{/if}}
+        </div>
+    </div>
+</section>

@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Diretório</h1>
+                            <nav class="panel">
+                                {{#each files}}
+                                <a class="panel-block" href="?path={{#if ../pathToFile}}{{../pathToFile}}/{{this}}{{else}}{{this}}{{/if}}">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-file"></i>
+                                    </span>
+                                    {{#if ../pathToFile}}{{../pathToFile}}/{{this}}{{else}}{{this}}{{/if}}
+                                </a>
+                                {{/each}}
+                            </nav>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

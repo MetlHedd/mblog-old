@@ -1,0 +1,21 @@
+{
+    "name": "mblog",
+    "version": "1.0.0",
+    "author": {
+        "name": "Melt Hedd"
+    },
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "bulma": "~0.7.2",
+        "colorfy": "~2.0.4",
+        "express": "~4.16.4",
+        "express-hbs": "~2.0.0",
+        "mongodb": "~3.1.10",
+        "mquery": "~3.2.0",
+        "node-sass": "~4.11.0",
+        "marked": "^0.6.0"
+    }
+}

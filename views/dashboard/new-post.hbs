@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">{{#if post}}Edit post{{else}}New Post{{/if}}</h1>
+                            <form id="fs" action="{{form.action}}" method="POST">
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Título</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input name="title" class="input has-background-grey-lighter" type="text" placeholder="O título do seu artigo" value="{{post.title}}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Imagem</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input name="img" class="input has-background-grey-lighter" type="text" placeholder="Deixe 'false' (sem as aspas) para não mostrar nenhuma imagem" value="{{post.img}}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Autor</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input name="author" class="input has-background-grey-lighter" type="text" placeholder="Como você deseja que apareça seu nome" value="{{post.author}}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Conteúdo</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <textarea name="content" class="textarea" id="post">{{post.content}}</textarea>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <label class="label">Formulário</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <a class="button is-primary" onclick="sendForm()">
+                                                Enviar
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                var freeMDE = new FreeMDE({element: document.getElementById('post')});
+                                function sendForm() {
+                                    document.getElementById("fs").submit()
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

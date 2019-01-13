@@ -1,0 +1,190 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Menu</h1>
+                            <nav class="panel" id="mlist">
+                            </nav>
+                            
+                            <div class="field" style="display: none;" id="mu">
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Nome:</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input id="mn" class="input has-background-grey-lighter" type="text" placeholder="O título do seu artigo" value="">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">HREF:</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input id="mhr" class="input has-background-grey-lighter" type="text" placeholder="O título do seu artigo" value="">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Menu</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <a class="button is-info" id="movec" onclick="up()" style="display: a;">
+                                                    Mover pra cima
+                                                </a>
+                                                <a class="button is-danger" id="moveb" onclick="down()" style="display: a;">
+                                                    Mover para baixo
+                                                </a>
+                                                <a class="button is-success" id="mta" onclick="updateItem()">
+                                                    Terminar alterações
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Mostrar apenas para usuários logados</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input name="logged" id="loggedOnly" type="checkbox">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <label class="label">Formulário</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <a class="button is-info" id="bs" onclick="update('new')">
+                                                Novo Item
+                                            </a>
+                                            <a class="button is-primary" id="bs" onclick="sendForm()">
+                                                Enviar alterações
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form id="ts" action="/dashboard/menu" style="display: none;" method="POST">
+                                <textarea name="code" id="fcode"></textarea>
+                            </form>
+
+                            <script>
+                                Array.prototype.move = function(from,to){
+                                    this.splice(to,0,this.splice(from,1)[0]);
+                                    return this;
+                                };
+                                let menu = {{jsonString site.menu}}
+                                let updating = false
+
+                                function updateList() {
+                                    let newHtml = ""
+                                    for (let i = 0; i < menu.length; i++) {
+                                        newHtml += `<a class="panel-block" onclick="update(`+i+`)">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-bars"></i>
+                                    </span>
+                                    <strong>`+menu[i].name+` =></strong>    Clique para editar
+                                </a>`
+                                    }
+                                    document.getElementById("mlist").innerHTML = newHtml
+                                }
+
+                                function updateItem() {
+                                    document.getElementById("mu").style.display = "none"
+                                    if (updating != "new") {
+                                        menu[updating] = {"name": document.getElementById("mn").value, "href": document.getElementById("mhr").value, logged: document.getElementById("loggedOnly").checked}
+                                    } else {
+                                       menu.push({"name": document.getElementById("mn").value, "href": document.getElementById("mhr").value, logged: document.getElementById("loggedOnly").checked}) 
+                                    }
+                                    updating = false
+                                    updateList()
+                                }
+
+                                function update(id){
+                                    updating = id
+                                    document.getElementById("mn").value = menu[id] && menu[id].name || ""
+                                    document.getElementById("mhr").value = menu[id] && menu[id].href || ""
+                                    document.getElementById("mu").style.display = "block"
+                                    if (updating == "new") {
+                                        document.getElementById("movec").style.display = "none"
+                                        document.getElementById("moveb").style.display = "none"
+                                    } else {
+                                        document.getElementById("movec").style.display = "inline-block"
+                                        document.getElementById("moveb").style.display = "inline-block"
+                                    }
+                                }
+
+                                function down() {
+                                    let id = updating
+                                    if ((id+1) != menu.length ) {
+                                        menu.move(id, id+1)
+                                        updating += 1
+                                    }
+                                    updateList()
+                                }
+
+                                function up() {
+                                    let id = updating
+                                    if (id != 0) {
+                                        menu.move(id, id-1)
+                                        updating -= 1
+                                    }
+                                    updateList()
+                                }
+
+                                function sendForm(){
+                                    document.getElementById("fcode").value = JSON.stringify(menu)
+                                    document.getElementById("ts").submit()
+                                }
+
+                                updateList()
+                            </script>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

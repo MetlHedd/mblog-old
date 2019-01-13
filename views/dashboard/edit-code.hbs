@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Edit code</h1>
+                            <div id="code-window" style="width: 662px;"><div class="" id="code" style="border: 1px #cecece solid;position: relative;width: 100%;height: 600px;"></div></div>
+                            
+                            {{#if form.editPath}}
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <label class="label">PATH/NAME/LINK</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <input id="lon" class="input has-background-grey-lighter" type="text" value="{{form.path}}" placeholder="PATH/NAME/LINK">
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/if}}
+                            {{#if form.widget}}
+                            <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Mostrar na página inicial</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input id="show" type="checkbox" checked="">
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/if}}
+
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <label class="label">Formulário</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <a class="button is-primary" id="bs" onclick="sendForm()">
+                                                Enviar
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <form id="ts" action="{{form.action}}" style="display: none;" method="{{form.method}}">
+                                <textarea name="path" id="path">{{form.path}}</textarea>
+                                <textarea name="code" id="fcode"></textarea>
+                                <input type="checkbox" id="showf" name="show" checked="" />
+                            </form>
+                            <script>
+                                const flask = new CodeFlask('#code', { language: '{{code.language}}', defaultTheme: false })
+                                flask.updateCode(`{{{code.content}}}`)
+
+                                function sendForm(){
+                                    let code = flask.getCode()
+                                    document.getElementById("fcode").value = code
+                                    {{#if form.editPath}}
+                                    document.getElementById("path").value = document.getElementById("lon").value
+                                    {{/if}}
+                                    {{#if form.widget}}
+                                    document.getElementById("showf").checked = document.getElementById("show").checked
+                                    {{/if}}
+                                    document.getElementById("ts").submit()
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

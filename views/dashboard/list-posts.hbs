@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Posts</h1>
+                            <nav class="panel">
+                                <p class="panel-tabs">
+                                    <a class="is-active">Current Page: 1</a>
+                                    <a>Back</a>
+                                    <a>Next</a>
+                                </p>
+                                {{#each posts}}
+                                <a class="panel-block" href="/dashboard/posts/edit/{{this._id}}">
+                                    <span class="panel-icon">
+                                        <i class="far fa-newspaper"></i>
+                                    </span>
+                                    {{this.title}} | Criado por: {{this.author.name}} | Em: dd/mm/yyyy
+                                </a>
+                                {{/each}}
+                            </nav>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

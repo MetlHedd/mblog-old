@@ -1,0 +1,24 @@
+<section class="section">
+    <div class="container-fluid">
+    <div class="box">
+        <article class="media">
+            <div class="media-content">
+                {{#if post.img}}<img src="{{post.img}}" />{{/if}}
+            <div class="content">
+                <p>
+                <strong>{{post.title}}</strong>
+                <br>
+                {{{marked post.content}}}
+                </p>
+            </div>
+            <div class="content has-text-grey">
+                <p>
+                {{#if site.options.showTime}}Postado em: 30/12/2018 - 17:58{{/if}}
+                {{#if site.options.showAuthor}}<br>
+                Por: {{post.author}}{{/if}}
+                </p>
+            </div>
+            </div>
+        </article>
+    </div>
+</section>

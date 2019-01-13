@@ -1,0 +1,13 @@
+<div class="tabs is-centered has-background-primary">
+    <ul>
+        {{#each site.menu}}
+        {{#if this.logged}}
+        {{#if user.logged}}
+        <li><a href="{{this.href}}">{{renderTemplate this.name root='true'}}</a></li>
+        {{/if}}
+        {{else}}
+        <li><a href="{{this.href}}">{{renderTemplate this.name root='true'}}</a></li>
+        {{/if}}
+        {{/each}}
+    </ul>
+</div>

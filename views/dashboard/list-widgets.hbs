@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Widgets</h1>
+                                {{#each widgets}}
+                                <a class="panel-block" href="/dashboard/widgets/edit/{{this._id}}">
+                                    <span class="panel-icon">
+                                        <i class="fas fa-laptop-code"></i>
+                                    </span>
+                                    {{this.name}}
+                                </a>
+                                {{/each}}
+                            </nav>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>

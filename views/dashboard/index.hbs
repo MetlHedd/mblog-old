@@ -1,0 +1,127 @@
+<!doctype html>
+<html>
+    {{> html/head}}
+
+    <body>
+        {{> blog/blog-title}}
+
+        {{> elements/menu}}
+
+        <section class="section">
+            <div class="container-fluid">
+                <div class="columns">
+                    <div class="column">
+                        {{> dashboard/menu}}
+                    </div>
+                    <div class="column is-four-fifths">
+                        <div class="box">
+                            <h1 class="title">Settings</h1>
+                            <form id="fs" method="POST" class="field">
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Nome do site</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="control">
+                                                <input name="siteTitle" class="input has-background-grey-lighter" type="text" placeholder="Coloque aqui qual vai ser o nome do site..." value="{{site.title}}">
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Thumbnail nas postagens (página inicial)</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input name="showThumb" type="checkbox" {{#if site.options.showThumb}}checked{{/if}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Mostrar autor</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input name="showAuthor" type="checkbox" {{#if site.options.showAuthor}}checked{{/if}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Mostrar data da postagem</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input name="showTime" type="checkbox" {{#if site.options.showTime}}checked{{/if}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="field is-horizontal">
+                                    <div class="field-label">
+                                        <label class="label">Ativar widgets</label>
+                                    </div>
+                                    <div class="field-body">
+                                        <div class="field">
+                                            <p class="checkbox">
+                                                <label class="switch">
+                                                    <input name="widgetsEnabled" type="checkbox" {{#if site.options.widgetsEnabled}}checked{{/if}}>
+                                                    <span class="slider"></span>
+                                                </label>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="field is-horizontal">
+                                <div class="field-label">
+                                    <label class="label">Formulário</label>
+                                </div>
+                                <div class="field-body">
+                                    <div class="field">
+                                        <p class="control">
+                                            <a class="button is-primary" onclick="sendForm()">
+                                                Enviar
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <script>
+                                function sendForm() {
+                                    document.getElementById("fs").submit()
+                                }
+                            </script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{> elements/footer}}
+        
+    </body>
+</html>
