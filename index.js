@@ -458,7 +458,6 @@ app.route('/dashboard/widgets/edit/:id')
         }
     })
 
-// PAGES
 app.get('/dashboard/pages', (req, res) => {
     mquery(collections['pages']).find().sort({_id: -1}).limit(10).exec((er, doc) => {
         if(er){
@@ -568,7 +567,6 @@ app.route('/dashboard/pages/edit/:id')
             res.render('error', {site: siteDetails, error: {message: 'Formulário incompleto'}})
         }
     })
-//END
 
 
 app.get('/p/:link', (req, res) => {
