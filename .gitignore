@@ -81,3 +81,5 @@ typings/
 
 # Storage
 storage/
+# Public
+public/
